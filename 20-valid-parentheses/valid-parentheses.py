@@ -4,14 +4,10 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        #regex?
-        #broootforce
-        #If else - loop and match
-        #loop through the string, so if the char matches "(" or ")" or "[" or "]" or "{" or "}"
-        #then hold the char in a container and check to see if its pair is in another container
-        #could house the incorrect pairs and see if there's a match then return false
-        #if yes then return true. otherwise false
-        #Fast fail, could loop the string and if the first char is not an opener, return false
+        #use a stack to manage the data, if the stack finishes by being empty that means we found a match for each char
+        #map the closes to the opens
+        #parse the string, check to see if each character is in the map
+        #Remove from stack as you find pairs
 
         stack = []
         closeToOpen = {")":"(","]":"[","}":"{"}
