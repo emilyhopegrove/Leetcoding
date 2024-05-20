@@ -4,29 +4,30 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        #use a stack to manage the data, if the stack finishes by being empty that means we found a match for each char
-        #map the closes to the opens
-        #parse the string, check to see if each character is in the map
-        #Remove from stack as you find pairs
-
-        stack = []
-        closeToOpen = {")":"(","]":"[","}":"{"}
-        #Loop the string to parse out the characters
-        #Loop the map to access each key
+        # Mapping of closing brackets to corresponding opening brackets
+        bracket_map = {"]": "[", "}": "{", ")": "("}
+        open_brackets = bracket_map.values()
+        bracket_tracker = []
+        
+        # Iterate through each character in the string
         for char in s:
-            if char in closeToOpen:
-                #if the stack is not empty, and the closing character in the map matches the last char in the stack
-                if stack and stack[-1] == closeToOpen[char]:
-                    #then remove it from the stack
-                    stack.pop()
+            if char in open_brackets:
+                # If it's an open bracket, push it onto the stack
+                bracket_tracker.append(char)
+            elif char in bracket_map:
+                # If it's a closing bracket, check for a matching open bracket
+                if bracket_tracker and bracket_tracker[-1] == bracket_map[char]:
+                    bracket_tracker.pop()
                 else:
-                    #otherwise if it doesn't match, that's a fast fail return false
                     return False
-            else:
-                #if we find an open parenthesis, then add it to the stack
-                stack.append(char)
-        #if the stack is empty, return true, otherwise it's false because there is an unmatched paren
-        return not stack
-
+        
+        # Check if the stack is empty (all brackets matched correctly)
+        return len(bracket_tracker) == 0
+        
+        
+        
+        
+#Time and space complexity are both O(n) 
+    #We are iterating through the string only once, where n is the length of the string. For each character, we are performing a constant amount of work (either pushing onto the stack or popping from it). Hence, the time complexity is O(n). In the worst-case scenario, all characters in the string are opening brackets, and we push all of them onto the stack. Hence, the space complexity is O(n), where n is the length of the string.
 
 
